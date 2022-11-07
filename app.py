@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, Response
 from flask_caching import Cache
-from resourses.parser import save_products, save_reviews
+from resourses.parser import Parser
 from resourses.database import db, Database
 
 
@@ -14,8 +14,8 @@ cache = Cache(app)
 @app.get('/initialize')
 def initialize():
     Database.initialize()
-    save_products()
-    save_reviews()
+    Parser.save_products()
+    Parser.save_reviews()
     return Response(status=200)
 
 
