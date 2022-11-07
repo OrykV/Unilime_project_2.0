@@ -27,7 +27,6 @@ def save_products():
     products = parse_products()
     Database.initialize()
     Database.insert(products)
-    print('products inserted')
 
 
 def save_reviews():
@@ -40,4 +39,3 @@ def save_reviews():
         if review.asin in ids:
             review.product_id = ids.get(review.asin)
     Database.insert(reviews)
-    print('reviews inserted')

@@ -9,7 +9,6 @@ app = Flask(__name__)
 app.config.from_object("config.Config")
 db.init_app(app)
 cache = Cache(app)
-print('works')
 
 
 @app.get('/initialize')
