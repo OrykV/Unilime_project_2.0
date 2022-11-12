@@ -1,8 +1,9 @@
 from flask import Flask, request, jsonify, Response
+
 from flask_caching import Cache
+
 from resourses.parser import Parser
 from resourses.database import db, Database
-
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ db.init_app(app)
 cache = Cache(app)
 
 
-@app.get('/initialize')
+@app.get('/initialize')  # To initialize database and save products with reviews
 def initialize():
     Database.initialize()
     Parser.save_products()
@@ -19,7 +20,7 @@ def initialize():
     return Response(status=200)
 
 
-@app.get('/reviews/<int:id>')
+@app.get('/reviews/<int:id>')  # To find reviews by products id
 @cache.cached(timeout=60)
 def get_reviews_by_id(id):
     data = []
@@ -45,7 +46,7 @@ def get_reviews_by_id(id):
     return jsonify({'data': data, "meta": meta})
 
 
-@app.put('/review_create/<int:product_id>')
+@app.put('/review_create/<int:product_id>')  # To create new review for product with id
 def review_create(product_id):
     ids = {}
     request_data = request.get_json()

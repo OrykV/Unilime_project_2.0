@@ -1,4 +1,5 @@
 import csv
+
 from resourses.models import Product, Review
 from resourses.database import Database
 
@@ -6,7 +7,7 @@ from resourses.database import Database
 class Parser(object):
 
     @staticmethod
-    def parse_products():
+    def parse_products():  # Extracts products from csv file and returns list of products
         products = []
         with open('Products.csv', mode='r') as csv_file:
             products_list = csv.DictReader(csv_file)
@@ -16,7 +17,7 @@ class Parser(object):
         return products
 
     @staticmethod
-    def parse_reviews():
+    def parse_reviews():  # Extracts reviews from csv file and returns list of reviews
         reviews = []
         with open('Reviews .csv', mode='r') as csv_file:
             reviews_list = csv.DictReader(csv_file)
@@ -32,7 +33,7 @@ class Parser(object):
         Database.insert(products)
 
     @staticmethod
-    def save_reviews():
+    def save_reviews():  # Assign products ids to reviews according to asins, and saves them to db
         ids = {}
         reviews = Parser.parse_reviews()
         products = Database.find_all_products()
